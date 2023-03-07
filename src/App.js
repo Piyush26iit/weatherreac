@@ -28,7 +28,22 @@ useEffect(() =>{
 
   fetchWeatherData();
 
-},[city]);
+},[units,city]);
+
+const changeUnit = (e)=>
+{
+
+ const button = e.currentTarget;
+ const currentUnit = button.innerText.slice(1);
+
+ const isCelsius = currentUnit ==='C'; 
+
+ button.innerText =isCelsius ? "*F":'*C';
+ setUnits(isCelsius ? 'metric' :'imperial')
+
+
+
+}
 
 
 
@@ -48,7 +63,7 @@ const enterKeyPressed =(e) =>{
           <div className="container">
           <div className="section section__input">
             <input onKeyDown={enterKeyPressed} type="text" name='city' placeholder='Enter City..' />
-            <button>*F</button>
+            <button onClick={(e)=>changeUnit(e)}>*F</button>
           </div>
           <div className="section section__temprature">
             <div className="icon">
@@ -60,7 +75,7 @@ const enterKeyPressed =(e) =>{
             </div>
             <div className="temprature">
               <h1>{`${weather.temp.toFixed()} *${
-                units === "metric" ? "C" : "C"}`}
+                units === "metric" ? "C" : "F"}`}
                </h1>
             </div>
           </div>
